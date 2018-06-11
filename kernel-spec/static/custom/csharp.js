@@ -52,6 +52,7 @@ CodeMirror.defineMode('csharp', function () {
             'public': 'keyword',
             'redonly': 'keyword',
             'ref': 'keyword',
+            'return': 'keyword',
             'sbyte': 'keyword',
             'sealed': 'keyword',
             'short': 'keyword',
