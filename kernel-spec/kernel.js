@@ -75,6 +75,18 @@ define(function () {
             return lines[line];
         }
 
+        function getTrueCurPos(cell, line, ch){
+            var lines = cell.split("\n");
+            console.log(lines.length);
+            var calibrated = 0;
+            if (line <= 0) return ch;
+
+            for (var i = 0; i < line; i++) {
+                calibrated = calibrated + lines[i].length + 1;
+            }
+            return calibrated + ch;
+        }
+
 
         function intellisenseRequestDeclaration(item) {
             var cells = getCodeCells();
@@ -106,6 +118,7 @@ define(function () {
                 code: JSON.stringify(cells.codes),
                 code_cells: cells.string_cells,
                 cursor_pos: cursor.ch,
+                code_pos: getTrueCurPos(cells.codes[cells.selectedIndex], cursor.line, cursor.ch),
                 line: JSON.stringify(getLine(cells.codes[cells.selectedIndex], cursor.line)),
                 cursor_line: cursor.line,
                 selected_cell: cells.selectedCell,
@@ -143,7 +156,7 @@ define(function () {
                     console.log('callback method!');
                     console.log(msg);
 
-                editor.intellisense.setMethods(['CompareTo(int)', 'CompareTo(Object)']);
+             //   editor.intellisense.setMethods(['CompareTo(int)', 'CompareTo(Object)']);
 
                //     editor.intellisense.setMethods(msg.content.matches);
 
@@ -192,9 +205,10 @@ define(function () {
 
                             //intellisense.addMethodsTrigger({ keyCode: 57, shiftKey: true }); // `(`
                             //intellisense.addMethodsTrigger({ keyCode: 48, shiftKey: true });// `)`
-                             intellisense.addMethodsTrigger({ keyCode: 8 }); // `backspace`
-                             intellisense.addMethodsTrigger({ keyCode: 190 });
-                             intellisense.addDeclarationTrigger({ keyCode: 32, ctrlKey: true, preventDefault: true, type: 'down' }); // `ctrl+space`
+                         //    intellisense.addMethodsTrigger({ keyCode: 8 }); // `backspace`
+                          //   intellisense.addMethodsTrigger({ keyCode: 190 });
+                            intellisense.addDeclarationTrigger({ keyCode: 190,}); // `.`
+                            intellisense.addDeclarationTrigger({ keyCode: 32, ctrlKey: true, preventDefault: true, type: 'down' }); // `ctrl+space`
                             // intellisense.addDeclarationTrigger({ keyCode: 191 }); // `/`
                             // intellisense.addDeclarationTrigger({ keyCode: 220 }); // `\`
                             // intellisense.addDeclarationTrigger({ keyCode: 222 }); // `"`
@@ -249,3 +263,4 @@ define(function () {
 
     return { onload: onload }
 })
+    
